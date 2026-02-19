@@ -25,3 +25,8 @@ After Code Change (How to Redeploy Local Image)
 * * * * *
 
 
+mkdir C:\WINDOWS\system32\config\systemprofile\.kube
+copy %USERPROFILE%\.kube\config C:\WINDOWS\system32\config\systemprofile\.kube\config
+
+
+
