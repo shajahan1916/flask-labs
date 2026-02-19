@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "flask-reg-app"
+    }
+
+    stages {
+
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/shajahan1916/flask-labs.git'
+            }
+        }
+
+        stage('Build Docker Image (Local)') {
+            steps {
+                sh "docker build -t $IMAGE_NAME:latest ."
+            }
+        }
+
+        stage('Deploy to Local Kubernetes') {
+            steps {
+                sh "kubectl apply -f k8s/k8s-deploy.yaml"
+            }
+        }
+    }
+}

@@ -1,0 +1,17 @@
+Build local image:
+    docker build -t flask-reg-app:latest .
+Verify image exists:
+    docker images
+
+deploy K8s:
+    kubectl apply -f k8s/k8s-deploy.yaml
+
+check status:
+    kubectl get pods
+    kubectl get svc
+
+
+After Code Change (How to Redeploy Local Image)
+    docker build -t flask-reg-app:latest .
+    kubectl rollout restart deployment flask-deployment
+
