@@ -4,7 +4,7 @@ Verify image exists:
     docker images
 
 deploy K8s:
-    kubectl apply -f k8s/k8s-deploy.yaml
+    kubectl apply -f k8s-deploy.yaml
 
 check status:
     kubectl get pods
