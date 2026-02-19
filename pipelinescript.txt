@@ -9,20 +9,20 @@ pipeline {
 
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/shajahan1916/flask-labs.git'
+                git branch: 'main', url: 'https://github.com/shajahan1916/flask-labs.git'
             }
         }
 
         stage('Build Docker Image (Local)') {
             steps {
-                sh "docker build -t $IMAGE_NAME:latest ."
+                bat "docker build -t %IMAGE_NAME%:latest ."
             }
         }
 
         stage('Deploy to Local Kubernetes') {
             steps {
-                sh "kubectl apply -f k8s/k8s-deploy.yaml"
-                sh "kubectl rollout restart deployment flask-deployment"
+                bat "kubectl apply -f k8s\\k8s-deploy.yaml"
+                bat "kubectl rollout restart deployment flask-deployment"
             }
         }
     }
