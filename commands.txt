@@ -6,9 +6,15 @@ Verify image exists:
 deploy K8s:
     kubectl apply -f k8s-deploy.yaml
 
+    kubectl config current-context
+    kubectl get pods
+    kubectl apply -f k8s-deploy.yaml
+
 check status:
     kubectl get pods
     kubectl get svc
+
+    
 
 
 After Code Change (How to Redeploy Local Image)
