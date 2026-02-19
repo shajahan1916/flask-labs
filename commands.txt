@@ -22,6 +22,6 @@ After Code Change (How to Redeploy Local Image)
     kubectl rollout restart deployment flask-deployment
 
 
-H/2 * * * *
+* * * * *
 
 
