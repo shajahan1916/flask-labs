@@ -21,3 +21,7 @@ After Code Change (How to Redeploy Local Image)
     docker build -t flask-reg-app:latest .
     kubectl rollout restart deployment flask-deployment
 
+
+H/2 * * * *
+
+

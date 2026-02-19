@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "flask-reg-app"
-        KUBECONFIG = "C:\\ProgramData\\Jenkins\\.kube\\config"
+        IMAGE_TAG = "build-${BUILD_NUMBER}"
     }
 
     stages {
@@ -14,16 +14,20 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image (Local)') {
+        stage('Build Docker Image') {
             steps {
-                bat "docker build -t %IMAGE_NAME%:latest ."
+                bat "docker build -t %IMAGE_NAME%:%IMAGE_TAG% ."
+                bat "docker tag %IMAGE_NAME%:%IMAGE_TAG% %IMAGE_NAME%:latest"
             }
         }
 
-        stage('Deploy to Local Kubernetes') {
+        stage('Deploy to Kubernetes') {
             steps {
-                bat "kubectl apply -f k8s-deploy.yaml"
-                bat "kubectl rollout restart deployment flask-deployment"
+                bat """
+                set KUBECONFIG=%USERPROFILE%\\.kube\\config
+                kubectl set image deployment/flask-deployment flask-container=%IMAGE_NAME%:%IMAGE_TAG%
+                kubectl rollout status deployment/flask-deployment
+                """
             }
         }
     }
